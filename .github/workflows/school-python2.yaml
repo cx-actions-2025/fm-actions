@@ -1,0 +1,291 @@
+name: Test School Python 02
+
+on:
+  workflow_call:
+    inputs:
+        team-name:
+            required: true
+            type: string
+    secrets:
+        test-repo:
+            required: true
+        auth-token:
+            required: true
+        backend-url: 
+            required: true
+        auth-key:
+            required: true
+
+jobs:
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout current repo
+        uses: actions/checkout@v3
+
+      - name: checkout tests
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.test-repo }}
+          token: ${{ secrets.auth-token }}
+          path: tests
+
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+
+      - name: install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: run test on bug 01
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug1_player_right_boundary > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-101"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 02
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug2_player_left_boundary > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-102"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 03
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug3_bullet_movement > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-103"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 04
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug4_bullet_speed > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-104"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 05
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug5_enemy_spawn_position > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-105"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 06
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug6_enemy_horizontal_boundaries > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-106"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 07
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug7_powerup_disappears_offscreen > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-107"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 08
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug8_player_shoot_power_level_2 > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-108"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 09
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug9_intermittent_control_reversal > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-109"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 10
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug10_score_increment > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-110"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 11
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug11_lives_decrement > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-111"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 12
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest tests.test_game.TestSpaceAdventure.bug12_game_over_condition > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-112"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
