@@ -67,7 +67,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "Add transactions" > /dev/null 2>&1
+          npx jest -t "Add transactions addTransaction test #1" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -88,7 +88,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "Update Values Functions" > /dev/null 2>&1
+          npx jest -t "Add transactions addTransaction test #2" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -109,7 +109,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "Transaction List DOM" > /dev/null 2>&1
+          npx jest -t "Add transactions addTransaction test #3" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -130,7 +130,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "chart" > /dev/null 2>&1
+          npx jest -t "Add transactions addTransaction test #4" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -151,7 +151,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "Generating Report" > /dev/null 2>&1
+          npx jest -t "Add transactions addTransaction test #5" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -172,7 +172,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "Category Management" > /dev/null 2>&1
+          npx jest -t "Update Values Functions updatevalues test #1" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -193,7 +193,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "CSS Validations" > /dev/null 2>&1
+          npx jest -t "Update Values Functions updatevalues #2" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -214,7 +214,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          npx jest -t "More Test cases" > /dev/null 2>&1
+          npx jest -t "Update Values Functions updatevalues test #3" > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -226,6 +226,300 @@ jobs:
             -d '{
                 "teamName": "${{ inputs.team-name }}",
                 "bugCode": "BUG-209"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 10
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "Transaction List DOM addTransactionDOM test #1" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-210"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 11
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "Transaction List DOM addTransactionDOM test #2" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-211"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 12
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "Transaction List DOM addTransactionDOM test #3" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-212"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 13
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "chart chart test #1" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-213"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 14
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "chart chart test #2" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-214"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 15
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "chart chart test #3" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-215"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 16
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "Generating Report" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-216"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 17
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "Category Management" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-217"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 18
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "CSS Validations UI test" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-218"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 19
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "CSS Validations UX test" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-219"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 20
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "More Test cases UI test #2" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-220"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 21
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "More Test cases UI test #3" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-221"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 22
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "More Test cases Js test #1" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-222"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 23
+        shell: bash {0}
+        run: |
+          set +e
+          npx jest -t "More Test cases Js test #2" > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-223"
             }'
           fi
           exit ${result}
