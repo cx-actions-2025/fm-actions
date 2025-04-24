@@ -45,7 +45,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_balance_after_multiple_operations > /dev/null 2>&1
+          python -m unittest test_bank.TestBankOperator.test_create_account_with_no_users > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -66,7 +66,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_invalid_deposit > /dev/null 2>&1
+          python -m unittest test_bank.TestBankOperator.test_invalid_user_selection > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -87,7 +87,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_invalid_withdrawal > /dev/null 2>&1
+          python -m unittest test_bank.TestBankAccount.test_invalid_deposit > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -108,7 +108,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_savings_account > /dev/null 2>&1
+          python -m unittest test_bank.TestBankAccount.test_withdrawal > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -129,7 +129,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_withdrawal > /dev/null 2>&1
+          python -m unittest test_bank.TestBankAccount.test_withdrawal_below_zero > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -150,7 +150,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_withdrawal_below_zero > /dev/null 2>&1
+          python -m unittest test_bank.TestBankAccount.test_balance_after_multiple_operations > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -171,7 +171,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_create_account_with_no_users > /dev/null 2>&1
+          python -m unittest test_bank.TestBankAccount.test_savings_account > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -192,7 +192,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_add_account > /dev/null 2>&1
+          python -m unittest test_bank.TestUser.test_add_account > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -213,7 +213,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_add_invalid_account > /dev/null 2>&1
+          python -m unittest test_bank.TestUser.test_total_balance > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -234,7 +234,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_invalid_email > /dev/null 2>&1
+          python -m unittest test_bank.TestUser.test_invalid_email_on_user_creation > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -255,7 +255,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_remove_account > /dev/null 2>&1
+          python -m unittest test_bank.TestUser.test_add_invalid_account > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -276,7 +276,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest test_bank.TestBankAccount.test_total_balance > /dev/null 2>&1
+          python -m unittest test_bank.TestUser.test_remove_account > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
