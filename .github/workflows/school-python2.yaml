@@ -42,7 +42,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug1_player_right_boundary > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug1_player_right_boundary > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -63,7 +63,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug2_player_left_boundary > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug2_player_left_boundary > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -84,7 +84,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug3_bullet_movement > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug3_bullet_movement > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -105,7 +105,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug4_bullet_speed > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug4_bullet_speed > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -126,7 +126,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug5_enemy_spawn_position > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug5_enemies_destroyed_when_hit > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -147,7 +147,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug6_enemy_horizontal_boundaries > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug6_player_shoot_power_level_2 > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -168,7 +168,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug7_powerup_disappears_offscreen > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug7_control_direction > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -189,7 +189,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug8_player_shoot_power_level_2 > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug8_score_increment > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -210,7 +210,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug9_intermittent_control_reversal > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug9_lives_decrement > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -231,7 +231,7 @@ jobs:
         shell: bash {0}
         run: |
           set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug10_score_increment > /dev/null 2>&1
+          python -m unittest tests.test_game.TestSpaceAdventure.test_bug10_game_over_condition > /dev/null 2>&1
           result=$?
           if [ ${result} -ne 0 ]; then
             echo "FAILED"
@@ -243,48 +243,6 @@ jobs:
             -d '{
                 "teamName": "${{ inputs.team-name }}",
                 "bugCode": "BUG-110"
-            }'
-          fi
-          exit ${result}
-        continue-on-error: true
-
-      - name: run test on bug 11
-        shell: bash {0}
-        run: |
-          set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug11_lives_decrement > /dev/null 2>&1
-          result=$?
-          if [ ${result} -ne 0 ]; then
-            echo "FAILED"
-          else
-            echo "PASSED"
-            curl -X POST ${{ secrets.backend-url }} \
-            -H "Content-Type: application/json" \
-            -H "x-webhook-token: ${{ secrets.auth-key }}" \
-            -d '{
-                "teamName": "${{ inputs.team-name }}",
-                "bugCode": "BUG-111"
-            }'
-          fi
-          exit ${result}
-        continue-on-error: true
-
-      - name: run test on bug 12
-        shell: bash {0}
-        run: |
-          set +e
-          python -m unittest tests.test_game.TestSpaceAdventure.bug12_game_over_condition > /dev/null 2>&1
-          result=$?
-          if [ ${result} -ne 0 ]; then
-            echo "FAILED"
-          else
-            echo "PASSED"
-            curl -X POST ${{ secrets.backend-url }} \
-            -H "Content-Type: application/json" \
-            -H "x-webhook-token: ${{ secrets.auth-key }}" \
-            -d '{
-                "teamName": "${{ inputs.team-name }}",
-                "bugCode": "BUG-112"
             }'
           fi
           exit ${result}
