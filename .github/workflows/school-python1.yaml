@@ -1,0 +1,292 @@
+name: Test School Python 01
+
+on:
+  workflow_call:
+    inputs:
+        team-name:
+            required: true
+            type: string
+    secrets:
+        test-repo:
+            required: true
+        auth-token:
+            required: true
+        backend-url: 
+            required: true
+        auth-key:
+            required: true
+
+jobs:
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout current repo
+        uses: actions/checkout@v3
+
+      - name: checkout tests
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.test-repo }}
+          token: ${{ secrets.auth-token }}
+          path: .
+
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+
+      - name: install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: run test on bug 01
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_balance_after_multiple_operations > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-001"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 02
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_invalid_deposit > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-002"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 03
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_invalid_withdrawal > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-003"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 04
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_savings_account > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-004"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 05
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_withdrawal > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-005"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 06
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_withdrawal_below_zero > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-006"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 07
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_create_account_with_no_users > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-007"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 08
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_add_account > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-008"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 09
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_add_invalid_account > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-009"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 10
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_invalid_email > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-010"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 11
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_remove_account > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-011"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
+      - name: run test on bug 12
+        shell: bash {0}
+        run: |
+          set +e
+          python -m unittest test_bank.TestBankAccount.test_total_balance > /dev/null 2>&1
+          result=$?
+          if [ ${result} -ne 0 ]; then
+            echo "FAILED"
+          else
+            echo "PASSED"
+            curl -X POST ${{ secrets.backend-url }} \
+            -H "Content-Type: application/json" \
+            -H "x-webhook-token: ${{ secrets.auth-key }}" \
+            -d '{
+                "teamName": "${{ inputs.team-name }}",
+                "bugCode": "BUG-012"
+            }'
+          fi
+          exit ${result}
+        continue-on-error: true
+
