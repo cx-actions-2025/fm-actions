@@ -28,7 +28,10 @@ jobs:
         with:
           repository: ${{ secrets.test-repo }}
           token: ${{ secrets.auth-token }}
-          path: .
+          path: test
+
+      - name: move test files
+        run: mv test/* ./
 
       - name: setup python
         uses: actions/setup-python@v3
