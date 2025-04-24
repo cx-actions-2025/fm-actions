@@ -28,7 +28,7 @@ jobs:
         with:
           repository: ${{ secrets.test-repo }}
           token: ${{ secrets.auth-token }}
-          path: test/java/cse/school/codejam
+          path: src/test/java/cse/school/codejam
       
       - name: setup java
         uses: actions/setup-java@v2
